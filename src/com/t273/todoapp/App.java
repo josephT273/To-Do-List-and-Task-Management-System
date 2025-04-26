@@ -1,14 +1,21 @@
 package com.t273.todoapp;
 
 import java.io.Console;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import com.t273.abstracts.Menu;
+import com.t273.database.Database;
+import com.t273.menu.MainMenu;
 
 public class App extends Menu{
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        
         while (true) {
             new App().displayMenu(input);
         }
@@ -59,13 +66,14 @@ public class App extends Menu{
             Arrays.fill(passwordArray, ' ');
         }
 
-        System.out.println(username + " - " + password);
+        if (loginUser(username, password)) {
+            new MainMenu().displayMenu(input);
+        }
     }
 
     private static void registerationScreen(Scanner input){
         Console console = System.console();
         String password = null;
-        String confirmPassword = null;
 
         System.out.print("\n\t ========================");
         System.out.println("\n---====<| Welcome to LoginScreen |>====---");
@@ -73,18 +81,47 @@ public class App extends Menu{
         System.out.print("[Username]: ");
         String username = input.next();
         char[] passwordArray = console.readPassword("[Password]: ");
-        char[] confirmPasswordArray = console.readPassword("[Confirm Password]: ");
-        if (passwordArray != null && confirmPasswordArray != null) {
+        if (passwordArray != null) {
             password = new String(passwordArray);
-            confirmPassword = new String(confirmPasswordArray);
-
-            if (password != confirmPassword) {
-                System.out.println("The password is not same");
-            }
             Arrays.fill(passwordArray, ' ');
-            Arrays.fill(confirmPasswordArray, ' ');
         }
 
-        System.out.println(username + " - " + password);
+        if(registerUser(username, password)){
+            new MainMenu().displayMenu(input);
+        }
+    }
+
+    private static boolean registerUser(String username, String password){
+        String query = "INSERT INTO users (username, password) VALUES (?, ?)";
+        Connection conn = Database.connection();
+        try(PreparedStatement statement = conn.prepareStatement(query)){
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean loginUser(String username, String password){
+        String query = "SELECT * FROM users WHERE username=? AND password=?";
+        try(Connection conn = Database.connection()){
+            PreparedStatement statement = conn.prepareStatement(query);
+            
+            statement.setString(1, username);
+            statement.setString(2, password);
+            try (ResultSet rs = statement.executeQuery()){
+                if (rs.next()) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

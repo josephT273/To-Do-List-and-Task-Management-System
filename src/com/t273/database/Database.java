@@ -1,19 +1,26 @@
 package com.t273.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-
+import java.sql.*;
 public class Database {
-    private static String connection_string = "jdbc:mysql://localhost:3306/todoapp";
+    private static String URL = "jdbc:mysql://localhost:3306/todoapp";
     private static String username = "root";
     private static String password = "";
+    private static Connection conn;
+    
+    static {
+        try {
 
-    public void connect() {
-        try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection c = DriverManager.getConnection(connection_string, username, password);
-        }catch(Exception e){
-            System.out.println("Error: " + e.getMessage());
+            conn = DriverManager.getConnection(URL, username, password);
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("JDBS drive not found: " + e.getMessage());
+        }catch(SQLException e){
+            System.err.println("SQL ErrorL " + e.getMessage());
         }
+    }
+    public Database() {}
+    public static Connection connection() {
+        return conn;
     }
 }
