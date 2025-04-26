@@ -22,7 +22,7 @@ public class App extends Menu{
         System.out.println("[1] Register");
         System.out.println("[2] Login");
         System.out.println("[3] Exit");
-        hundleInput(input);
+        handleInput(input);
     }
     @Override
     public void choiceOptionProcessing(Scanner input, int choice) {

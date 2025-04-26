@@ -6,7 +6,7 @@ public abstract class Menu {
     public abstract void displayMenu(Scanner input);
 
 
-    public void hundleInput(Scanner input){
+    public void handleInput(Scanner input){
         System.out.print("Enter your choice: ");
         int choice = input.nextInt();
         choiceOptionProcessing(input, choice);
