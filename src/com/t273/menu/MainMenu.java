@@ -24,13 +24,13 @@ public class MainMenu extends Menu{
     public void choiceOptionProcessing(Scanner input, int choice) {
         switch (choice) {
             case 1:
-                
+                new TaskMenu().displayMenu(input);
                 break;
             case 2:
-
+                new TodoList().displayMenu(input);
                 break;
             case 3:
-
+                new AccountMenu().displayMenu(input);
                 break;
             case 4:
                 System.out.println("Exiting the program...");

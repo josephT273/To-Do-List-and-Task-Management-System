@@ -68,6 +68,8 @@ public class App extends Menu{
 
         if (loginUser(username, password)) {
             new MainMenu().displayMenu(input);
+        }else{
+            System.out.println("Invalid username or password!");
         }
     }
 
@@ -88,6 +90,8 @@ public class App extends Menu{
 
         if(registerUser(username, password)){
             new MainMenu().displayMenu(input);
+        }else{
+            System.out.println("Please try again with a different username!");
         }
     }
 
