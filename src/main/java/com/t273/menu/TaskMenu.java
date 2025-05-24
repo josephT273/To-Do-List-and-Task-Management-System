@@ -27,21 +27,27 @@ public class TaskMenu extends Menu {
         switch (choice) {
             case 1:
                 new AddTaskHandler().handle(input);
+                displayMenu(input);
                 break;
             case 2:
                 new UpdateTaskHandler().handle(input);
+                displayMenu(input);
                 break;
             case 3:
                 new ViewTasksHandler().handle();
+                displayMenu(input);
                 break;
             case 4:
                 new CompleteAllTasksHandler().handle();
+                displayMenu(input);
                 break;
             case 5:
                 new SortTasksHandler().handle(input);
+                displayMenu(input);
                 break;
             case 6:
                 new ReportGenerator(App.currentUserId).generate();
+                displayMenu(input);
                 break;
             case 7:
                 new MainMenu().displayMenu(input);

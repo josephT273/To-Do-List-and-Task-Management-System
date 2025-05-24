@@ -10,7 +10,7 @@ public class ViewTasksHandler {
             List<Task> tasks = TaskDAO.getAllTasks(1); // Static user ID
             System.out.println("\n--- Task List ---");
             for (Task t : tasks) {
-                System.out.println("ID: " + t.id + ", Title: " + t.title + ", Priority: " + t.priority + ", Deadline: " + t.deadline + ", Status: " + t.status);
+                System.out.println("ID: " + t.id + ", Title:  " + t.title + ", Priority: " + t.priority + ", Deadline: " + t.deadline + ", Status: " + t.status);
             }
         } catch (Exception e) {
             System.err.println("❌ Error fetching tasks: " + e.getMessage());
