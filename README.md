@@ -125,12 +125,12 @@ All dependencies are declared in `pom.xml`. Major ones include:
 Contributions are welcome! Fork this repo and submit a pull request.
 
 ---
-
+<!-- 
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
 
----
+--- -->
 
 ## 🙏 Credits
 
