@@ -85,8 +85,9 @@ public class App extends Menu{
 
     private static boolean registerUser(String username, String password){
         String query = "INSERT INTO users (username, password) VALUES (?, ?)";
-        Connection conn = Database.connection();
-        try(PreparedStatement statement = conn.prepareStatement(query)){
+        
+        try(Connection conn = Database.connection();
+            PreparedStatement statement = conn.prepareStatement(query)){
             statement.setString(1, username);
             statement.setString(2, HashUtil.hashPassword(password));
 

@@ -22,7 +22,7 @@ public class TaskDAO {
         }
     }
 
-    public static List<Task> getAllTasks(int userId) throws Exception {
+    public static List<Task> getAllTasks(int userId){
         String sql = "SELECT * FROM tasks WHERE user_id = ?";
         List<Task> tasks = new ArrayList<>();
 
@@ -41,6 +41,8 @@ public class TaskDAO {
                 task.userId = userId;
                 tasks.add(task);
             }
+        }catch(Exception e){
+            System.err.println("Error: " + e);
         }
 
         return tasks;
@@ -109,6 +111,33 @@ public class TaskDAO {
             }
         }
         return 0;
+    }
+
+    public static List<Task> getTasksByStatus(int userId, String status)  {
+        String sql = "SELECT * FROM tasks WHERE user_id = ? AND status = ?";
+        List<Task> tasks = new ArrayList<>();
+
+        try (Connection conn = Database.connection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.setString(2, status);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Task task = new Task(
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getInt("priority"),
+                    rs.getDate("deadline").toLocalDate(),
+                    rs.getString("status")
+                );
+                task.id = rs.getInt("id");
+                task.userId = userId;
+                tasks.add(task);
+            }
+        }catch(Exception e){
+            System.err.println("Error: " + e);
+        }
+
+        return tasks;
     }
 
 }
