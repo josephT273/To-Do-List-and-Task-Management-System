@@ -26,20 +26,19 @@ public class TaskMenu extends Menu {
     public void choiceOptionProcessing(Scanner input, int choice) {
         switch (choice) {
             case 1:
-                new AddTaskHandler().handle(input);
+                new TaskHandler().addHandler(input);
                 break;
             case 2:
-                new UpdateTaskHandler().handle(input);
+                new TaskHandler().updateHandle(input);
                 break;
             case 3:
-                new ViewTasksHandler().handle();
-                System.out.println(App.currentUserId);
+                new TaskHandler().viewHandle();;
                 break;
             case 4:
-                new CompleteAllTasksHandler().handle();
+                new TaskHandler().completeHandler();
                 break;
             case 5:
-                new SortTasksHandler().handle(input);
+                new TaskHandler().sortHandle(input);
                 break;
             case 6:
                 new ReportGenerator(App.currentUserId).generate();
