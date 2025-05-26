@@ -1,14 +1,9 @@
 package com.t273.todoapp;
 
 import com.t273.abstracts.Menu;
-import com.t273.database.Database;
+import com.t273.database.UserDAO;
 import com.t273.menu.MainMenu;
-import com.t273.utils.HashUtil;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.t273.modal.User;
 import java.util.Scanner;
 
 public class App extends Menu{
@@ -59,8 +54,10 @@ public class App extends Menu{
         String username = input.nextLine();
         System.out.print("[Password]: ");
         String password = input.nextLine();
+        
+        User user = new User(username, password);
 
-        if (loginUser(username, password)) {
+        if (UserDAO.loginUser(user)) {
             new MainMenu().displayMenu(input);
         }else{
             System.out.println("Invalid username or password!");
@@ -76,48 +73,12 @@ public class App extends Menu{
         System.out.print("[Password]: ");
         String password = input.nextLine();
 
-        if(registerUser(username, password)){
+        User user = new User(username, password);
+        if(UserDAO.registerUser(user)){
             new MainMenu().displayMenu(input);
         }else{
             System.out.println("Please try again with a different username!");
         }
-    }
-
-    private static boolean registerUser(String username, String password){
-        String query = "INSERT INTO users (username, password) VALUES (?, ?)";
-        
-        try(Connection conn = Database.connection();
-            PreparedStatement statement = conn.prepareStatement(query)){
-            statement.setString(1, username);
-            statement.setString(2, HashUtil.hashPassword(password));
-
-            return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-            return false;
-        }
-    }
-
-    private static boolean loginUser(String username, String password){
-        String query = "SELECT * FROM users WHERE username=?";
-        try(Connection conn = Database.connection();
-            PreparedStatement statement = conn.prepareStatement(query)){
-            
-            statement.setString(1, username);
-
-            try (ResultSet rs = statement.executeQuery()){
-                if (rs.next()) {
-                    String hashedPassword = rs.getString("password");
-                    if (HashUtil.checkPassword(password, hashedPassword)) {
-                        App.currentUserId = rs.getInt("id");
-                        return true;
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
     }
 
 }

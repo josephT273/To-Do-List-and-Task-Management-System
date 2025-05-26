@@ -17,7 +17,7 @@ public class AddTaskHandler {
         LocalDate deadline = LocalDate.parse(input.nextLine());
 
         Task task = new Task(title, desc, priority, deadline, "pending");
-        task.userId = 1; // Replace with logged-in user ID if login is added
+        task.userId = App.currentUserId;
 
         try {
             TaskDAO.addTask(task);

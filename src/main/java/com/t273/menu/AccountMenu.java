@@ -56,7 +56,6 @@ public class AccountMenu extends Menu {
         }
         System.out.println("\n--- Your Profile ---");
         System.out.println("👤 Username: " + user.getName());
-        System.out.println("📧 Email: " + user.email);
         System.out.println("----------------------");
     }
 
@@ -68,14 +67,7 @@ public class AccountMenu extends Menu {
             return;
         }
 
-        System.out.print("Enter new email: ");
-        String email = input.nextLine().trim();
-        if (email.isEmpty()) {
-            System.out.println("❌ Email cannot be empty.");
-            return;
-        }
-
-        boolean updated = UserDAO.updateProfile(App.currentUserId, username, email);
+        boolean updated = UserDAO.updateProfile(App.currentUserId, username);
         if (updated) {
             System.out.println("✅ Profile updated.");
         } else {

@@ -33,6 +33,7 @@ public class TaskMenu extends Menu {
                 break;
             case 3:
                 new ViewTasksHandler().handle();
+                System.out.println(App.currentUserId);
                 break;
             case 4:
                 new CompleteAllTasksHandler().handle();

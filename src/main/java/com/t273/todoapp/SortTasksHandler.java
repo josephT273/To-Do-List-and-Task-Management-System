@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class SortTasksHandler {
     public void handle(Scanner input) {
         try {
-            List<Task> sorted = TaskDAO.getTasksSortedByDeadline(1); // Static user ID
+            List<Task> sorted = TaskDAO.getTasksSortedByDeadline(App.currentUserId); // Static user ID
             System.out.println("\n--- Sorted Tasks by Deadline ---");
             for (Task t : sorted) {
                 System.out.println("ID: " + t.id + ", Title: " + t.title + ", Deadline: " + t.deadline);

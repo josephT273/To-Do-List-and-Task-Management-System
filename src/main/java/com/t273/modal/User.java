@@ -3,21 +3,18 @@ package com.t273.modal;
 public class User {
     public int id;
     public String name;
-    public String email;
     public String password;
 
     public User() {}
 
-    public User(String name, String email, String password) {
+    public User(String name, String password) {
         this.name = name;
-        this.email = email;
         this.password = password;
     }
 
-    public User(int id, String name, String email, String password) {
+    public User(int id, String name, String password) {
         this.id = id;
         this.name = name;
-        this.email = email;
         this.password = password;
     }
 
@@ -30,9 +27,6 @@ public class User {
         return name;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
     public String getPassword() {
         return password;
@@ -46,9 +40,6 @@ public class User {
         this.name = name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public void setPassword(String password) {
         this.password = password;

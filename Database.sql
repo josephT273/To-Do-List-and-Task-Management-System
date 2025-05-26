@@ -15,17 +15,6 @@ CREATE TABLE tasks (
     user_id INT REFERENCES users(id)
 );
 
-CREATE TABLE tags (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE
-);
-
-CREATE TABLE task_tags (
-    task_id INT REFERENCES tasks(id),
-    tag_id INT REFERENCES tags(id),
-    PRIMARY KEY(task_id, tag_id)
-);
-
 CREATE TABLE task_history (
     id SERIAL PRIMARY KEY,
     task_id INT REFERENCES tasks(id),
