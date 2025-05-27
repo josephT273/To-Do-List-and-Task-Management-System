@@ -26,23 +26,18 @@ public class AccountMenu extends Menu {
     @Override
     public void choiceOptionProcessing(Scanner input, int choice) {
         switch (choice) {
-            case 1:
-                viewProfile();
-                break;
-            case 2:
-                updateProfile(input);
-                break;
-            case 3:
-                changePassword(input);
-                break;
-            case 4:
+            case 1 -> viewProfile();
+            case 2 -> updateProfile(input);
+            case 3 -> changePassword(input);
+            case 4 -> {
                 deleteAccount(input);
                 return;
-            case 5:
+            }
+            case 5 -> {
                 new MainMenu().displayMenu(input);
                 return;
-            default:
-                System.out.println("❌ Invalid option. Try again.");
+            }
+            default -> System.out.println("❌ Invalid option. Try again.");
         }
 
         displayMenu(input);

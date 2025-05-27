@@ -1,10 +1,11 @@
 package com.t273.todoapp;
 
+import java.util.Scanner;
+
 import com.t273.abstracts.Menu;
 import com.t273.database.UserDAO;
 import com.t273.menu.MainMenu;
 import com.t273.modal.User;
-import java.util.Scanner;
 
 public class App extends Menu{
     public static int currentUserId = -1;
@@ -30,19 +31,13 @@ public class App extends Menu{
     @Override
     public void choiceOptionProcessing(Scanner input, int choice) {
         switch (choice) {
-            case 1:
-                registrationScreen(input);
-                break;
-            case 2:
-                loginScreen(input);
-                break;
-            case 3:
+            case 1 -> registrationScreen(input);
+            case 2 -> loginScreen(input);
+            case 3 -> {
                 System.out.println("Exiting...... The app!");
                 System.exit(0);
-                break;
-            default:
-                System.out.println("Invalid choice, please enter 1-3 only");
-                break;
+            }
+            default -> System.out.println("Invalid choice, please enter 1-3 only");
         }
     }
 

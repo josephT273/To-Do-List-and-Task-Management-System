@@ -106,6 +106,8 @@ mvn clean package
 
 ```bash
 java -jar target/todoapp-1.0.0.jar
+// Or Use
+mvn compile exec:java
 ```
 
 ---
