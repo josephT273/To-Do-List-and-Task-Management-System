@@ -8,7 +8,7 @@ import com.t273.menu.MainMenu;
 import com.t273.modal.User;
 
 public class App extends Menu{
-    public static int currentUserId = -1;
+    public static int currentUserId = -1; 
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -28,6 +28,7 @@ public class App extends Menu{
         System.out.println("[3] Exit");
         handleInput(input);
     }
+    
     @Override
     public void choiceOptionProcessing(Scanner input, int choice) {
         switch (choice) {
